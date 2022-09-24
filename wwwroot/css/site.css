@@ -1,0 +1,36 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+validation-summary ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.table-users tr > th:first-child,
+.table-users tr > td:first-child,
+.table-users tr > th:nth-child(3),
+.table-users tr > td:nth-child(3),
+.table-users tr > td:last-child,
+.table-users tr > td:last-child
+{
+    width: 1%;
+    white-space: nowrap;
+    text-align: center;
+}

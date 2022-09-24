@@ -1,0 +1,18 @@
+﻿@if (TempData.ContainsKey("message"))
+{
+    var message = MessageViewModel.Deserialize(TempData["message"].ToString());
+    @if (message.Type == MessageType.Error)
+    {
+        <div class="alert alert-warning mt-3 alert-dismissible fade show" role="alert">
+            @Html.Raw(message.Text)
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success mt-3 alert-dismissible fade show" role="alert">
+            @Html.Raw(message.Text)
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+}

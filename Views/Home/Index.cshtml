@@ -1,0 +1,69 @@
+﻿@using System.Net
+<!--model IEnumerable<JKNews.Models.Post>-->
+@model PaginatedList<JKNews.Models.Post>
+@{
+    ViewData["Title"] = "Home Page";
+
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="row">
+    <div class="col-6">
+        @Html.ActionLink("Posts", "Index", "Posts")
+        @Html.ActionLink("Categories", "Index", "Categories")
+        @Html.ActionLink("Tags", "Index", "Tags")
+        @Html.ActionLink("Users", "Index", "Account")
+    </div>
+    <div class="col-6">
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    <i class="bi bi-search"></i> <input type="text" name="SearchString"
+                        value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" value="Buscar" class="btn btn-default" />
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="text-center container">
+    <h1 class="display-4">Latest News</h1>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="card" style="width: 100%;">     
+                <img src="@item.Image" class="card-img-overlay">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="nav-link" asp-controller="Post" asp-action="Detail"
+                            asp-route-id="@item.Slug">
+                        @Html.DisplayFor(modelItem => item.Title)
+                        </a>
+                    </h5>
+                    <p class="card-text">
+                        @Html.Raw(WebUtility.HtmlDecode(item.Desc))
+                    </p>
+                </div>
+           
+            </div>
+            <hr />
+        }
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+    </div>
+</div>
+
+
